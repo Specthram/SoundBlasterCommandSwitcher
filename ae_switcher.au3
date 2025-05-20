@@ -31,6 +31,8 @@ While $RUNNING
 WEnd
 
 Func SwitchOutput()
+	; Save current mouse position
+	Local $aOriginalPos = MouseGetPos()
 	Local $soundblasterWasVisible = BitAND(WinGetState($SOUNDBLASTER_WIN_TITLE), $WIN_STATE_VISIBLE)
 	$saved_win_handle = WinGetHandle("[active]")
 	WinSetState($saved_win_handle, "", @SW_MINIMIZE)
@@ -59,6 +61,8 @@ Func SwitchOutput()
 	EndIf
 
 	WinActivate($saved_win_handle)
+        ; Restore mouse position
+        MouseMove($aOriginalPos[0], $aOriginalPos[1], 0)
 EndFunc
 
 Func Terminate()
